@@ -1,0 +1,370 @@
+package plg.proto;
+
+import java_cup.runtime.*;
+import es.ucm.fdi.plg.evlib.TAtributos;
+
+// Se crea el objeto que contiene las funciones de atribución
+action code {:
+   private EAtribucion atrib = new EAtribucion();
+:}
+
+// Definición de los terminales del lenguaje 
+terminal    SUBPROGRAM, SUBPROGRAMS;
+terminal 	String IDENTIFICADOR;
+terminal 	NATURALES, CARACTER, ENTERO, REAL, BOOLEANO;
+terminal    PROGRAM, CONSTS, CONST, VARS, VAR, TIPOS, TIPO, INSTRUCTIONS; 
+terminal 	IN, OUT, SWAP1, SWAP2, IF, THEN, ELSE, ENDIF, WHILE, DO, ENDWHILE, CALL;
+terminal	NATURAL, INTEGER, FLOAT, BOOLEAN, CHARACTER;
+terminal	DOSPUNTOS, PUNTOYCOMA, COMA, IGUAL, BARRABAJA; 
+terminal	LLAVEAP, LLAVECIERRE, CORCAP, CORCCIERRE, PAP, PCIERRE;
+terminal 	MAYOR, MENOR, MAYORIGUAL, MENORIGUAL, IGUALIGUAL, DISTINTO;
+terminal 	MAS, MENOS, MULT, DIV, MOD;
+terminal 	DESPIZQ, DESPDER;
+terminal 	INT, CHAR, NAT;
+terminal 	NOT, AND, OR;
+
+// Definicion de los no terminales del lenguaje 
+non terminal TAtributos Inicio, Prog, DecConstantes, Constantes, Constante, DecTipos, Tipos, Tipo, DeclaracionTipo, TipoBasico, TipoNoBasico, DecTuplas, Tuplas, TipoIndice, DecVariables, Variables, Variable, DecSubprogramas, Subprogramas, Subprograma, DecParams, Parametros, Parametro, Cuerpo, DecInstruc, Instrs, Instr, Asign, Swap1, Swap2, Lectura, Escritura, Ifs, InstrsV, Whiles, Calls, DecArgs, Argumentos, Argumento, Expr, Nivel0, Nivel1, Nivel2, Nivel3, Nivel4, Operando, ValorTipoBasico, OpNivel0, OpNivel1, OpNivel2, OpNivel3, OpNivel4, Designador;
+
+// Se definen las reglas sintacticas 
+
+Inicio ::= PROGRAM DOSPUNTOS IDENTIFICADOR LLAVEAP Prog:Prog0 LLAVECIERRE
+{: RESULT = atrib.rInicio(Prog0); :};
+
+Prog ::= DecConstantes:DecConstantes0 DecTipos:DecTipos0 DecVariables:DecVariables0 DecSubprogramas:DecSubprogramas0 DecInstruc:DecInstruc0
+{: RESULT = atrib.rProg(DecConstantes0, DecTipos0, DecVariables0, DecSubprogramas0, DecInstruc0); :};
+
+DecConstantes ::= CONSTS LLAVEAP Constantes:Constantes0 LLAVECIERRE
+{: RESULT = atrib.rDecConstantes0(Constantes0); :}
+|
+{: RESULT = atrib.rDecConstantes1(); :};
+
+Constantes ::= Constantes:Constantes0 Constante:Constante0
+{: RESULT = atrib.rConstantes0(Constantes0, Constante0); :};
+	
+Constantes ::= Constante:Constante0
+{: RESULT = atrib.rConstantes1(Constante0); :};
+
+Constante ::= CONST TipoBasico:TipoBasico0 IDENTIFICADOR:Iden IGUAL ValorTipoBasico:ValorTipoBasico0 PUNTOYCOMA
+{: RESULT = atrib.rConstante(TipoBasico0, Iden, ValorTipoBasico0); :};
+	
+DecTipos::= TIPOS LLAVEAP Tipos:Tipos0 LLAVECIERRE
+{: RESULT = atrib.rDecTipos0(Tipos0); :}
+|
+{: RESULT = atrib.rDecTipos1(); :};
+
+Tipos::= Tipos:Tipos0 Tipo:Tipo0
+{: RESULT = atrib.rTipos0(Tipos0, Tipo0); :};
+
+Tipos::= Tipo:Tipo0
+{: RESULT = atrib.rTipos1(Tipo0); :};
+
+Tipo::= TIPO DeclaracionTipo:DeclaracionTipo0 IDENTIFICADOR:identificador0 PUNTOYCOMA
+{: RESULT = atrib.rTipo0(DeclaracionTipo0,identificador0); :};
+ 
+DeclaracionTipo ::= TipoBasico:TipoBasico0
+{: RESULT = atrib.rDeclaracionTipo0(TipoBasico0); :};
+
+	
+DeclaracionTipo ::= TipoNoBasico:TipoNoBasico0
+{: RESULT = atrib.rDeclaracionTipo1(TipoNoBasico0); :};
+	
+TipoBasico ::= NATURAL:natural0
+{: RESULT = atrib.rTipoBasico0(natural0); :};
+
+TipoBasico ::= INTEGER:integer0
+{: RESULT = atrib.rTipoBasico1(integer0); :};
+
+TipoBasico ::= FLOAT:float0
+{: RESULT = atrib.rTipoBasico2(float0); :};
+
+TipoBasico ::= BOOLEAN:boolean0
+{: RESULT = atrib.rTipoBasico3(boolean0); :};
+
+TipoBasico ::= CHARACTER:character0
+{: RESULT = atrib.rTipoBasico4(character0); :};
+
+TipoNoBasico::= IDENTIFICADOR:identificador0 
+{: RESULT = atrib.rTipoNoBasico0(identificador0); :};
+
+TipoNoBasico::= PAP DecTuplas:DecTuplas0 PCIERRE
+{: RESULT = atrib.rTipoNoBasico1(DecTuplas0); :};
+	
+DecTuplas ::= Tuplas:Tuplas0 
+{: RESULT = atrib.rDecTuplas0(Tuplas0); :}
+|
+{: RESULT = atrib.rDecTuplas1(); :};
+
+Tuplas ::= Tuplas:Tuplas0 COMA DeclaracionTipo:DeclaracionTipo0
+{: RESULT = atrib.rTuplas0(Tuplas0, DeclaracionTipo0); :};
+
+Tuplas ::= DeclaracionTipo:DeclaracionTipo0
+{: RESULT = atrib.rTuplas1(DeclaracionTipo0); :};
+
+TipoNoBasico::= DeclaracionTipo:DeclaracionTipo0 CORCAP TipoIndice:TipoIndice0 CORCCIERRE
+{: RESULT = atrib.rTipoNoBasico2(DeclaracionTipo0,TipoIndice0); :};
+
+TipoIndice ::= IDENTIFICADOR:identificador0 
+{: RESULT = atrib.rTipoIndice0(identificador0); :};
+
+TipoIndice ::= NATURALES:natural0
+{: RESULT = atrib.rTipoIndice1(natural0); :};
+
+DecVariables ::= VARS LLAVEAP Variables:Variables0 LLAVECIERRE
+{: RESULT = atrib.rDecVariables0(Variables0); :}
+|
+{: RESULT = atrib.rDecVariables1(); :};
+
+Variables ::= Variables:Variables1 Variable:Variable0
+{: RESULT = atrib.rVariables0(Variables1,Variable0); :};
+
+Variables ::= Variable:Variable0
+{: RESULT = atrib.rVariables1(Variable0); :};
+
+Variable ::=  VAR DeclaracionTipo:DeclaracionTipo0 IDENTIFICADOR:identificador0 PUNTOYCOMA
+{: RESULT = atrib.rVariable0(DeclaracionTipo0, identificador0); :};
+
+DecSubprogramas ::= SUBPROGRAMS LLAVEAP Subprogramas:Subprogramas0 LLAVECIERRE
+{: RESULT = atrib.rDecSubprogramas0(Subprogramas0); :}
+|
+{: RESULT = atrib.rDecSubprogramas1(); :};
+
+Subprogramas ::= Subprogramas:Subprogramas0 Subprograma:Subprograma0 
+{: RESULT = atrib.rSubprogramas0(Subprogramas0, Subprograma0); :};
+
+Subprogramas ::= Subprograma:Subprograma0 
+{: RESULT = atrib.rSubprogramas1(Subprograma0); :};
+
+Subprograma ::= SUBPROGRAM DOSPUNTOS IDENTIFICADOR:identificador0 PAP DecParams:DecParams0 PCIERRE LLAVEAP Cuerpo:Cuerpo0 LLAVECIERRE
+{: RESULT = atrib.rSubprograma(identificador0, DecParams0, Cuerpo0); :};
+
+DecParams ::= Parametros:Parametros0
+{: RESULT = atrib.rDecParams1(Parametros0); :}
+|
+{: RESULT = atrib.rDecParams0(); :};
+
+Parametros ::= Parametros:Parametros0 COMA Parametro:Parametro0
+{: RESULT = atrib.rParametros0(Parametros0, Parametro0); :};
+
+Parametros ::= Parametro:Parametro0
+{: RESULT = atrib.rParametros1(Parametro0); :};
+
+Parametro ::= DeclaracionTipo:DeclaracionTipo0 IDENTIFICADOR:identificador0
+{: RESULT = atrib.rParametro0(DeclaracionTipo0, identificador0); :};
+
+Parametro ::= DeclaracionTipo:DeclaracionTipo0 MULT IDENTIFICADOR:identificador0
+{: RESULT = atrib.rParametro1(DeclaracionTipo0, identificador0); :};
+
+Cuerpo ::= DecVariables:DecVariables0 DecInstruc:DecInstruc0
+{: RESULT = atrib.rCuerpo(DecVariables0, DecInstruc0); :};
+
+DecInstruc::= INSTRUCTIONS LLAVEAP Instrs:Instrs0 LLAVECIERRE
+{: RESULT = atrib.rDecInstruc(Instrs0); :};
+
+Instrs::= Instrs:Instrs0 Instr:Instr0
+{: RESULT = atrib.rInstrs0(Instrs0, Instr0); :};
+
+Instrs::= Instr:Instr0
+{: RESULT = atrib.rInstrs1(Instr0); :};
+
+Instr::= Asign:Asign0
+{: RESULT = atrib.rInstr0(Asign0); :};
+
+Instr::= Lectura: Lectura0 
+{: RESULT = atrib.rInstr1(Lectura0); :};
+
+Instr::= Escritura:Escritura0 
+{: RESULT = atrib.rInstr2(Escritura0); :};
+
+Instr::= Swap1 : Swap10
+{: RESULT = atrib.rInstr3(Swap10); :};
+
+Instr::= Swap2 : Swap20
+{: RESULT = atrib.rInstr4(Swap20); :};
+
+Instr::= Ifs:Ifs0
+{: RESULT = atrib.rInstr5(Ifs0); :};
+
+Instr::= Whiles:Whiles0
+{: RESULT = atrib.rInstr6(Whiles0); :};
+
+Instr::= Calls:Calls0
+{: RESULT = atrib.rInstr7(Calls0); :};
+
+Asign ::= Designador:Designador0 IGUAL Expr:Expr0 PUNTOYCOMA
+{: RESULT = atrib.rAsign(Designador0, Expr0); :};
+
+Swap1 ::= SWAP1 PAP PCIERRE PUNTOYCOMA
+{: RESULT = atrib.rSwap1(); :};
+
+Swap2 ::= SWAP2 PAP PCIERRE PUNTOYCOMA
+{: RESULT = atrib.rSwap2(); :};
+
+Lectura ::= IN PAP Designador:Designador0 PCIERRE PUNTOYCOMA
+{: RESULT = atrib.rLectura(Designador0); :};
+
+Escritura ::= OUT PAP Expr:Expr0 PCIERRE PUNTOYCOMA
+{: RESULT = atrib.rEscritura(Expr0); :};
+
+Ifs ::= IF Expr:Expr0 THEN InstrsV:InstrsV0 ELSE InstrsV:InstrsV1 ENDIF
+{: RESULT = atrib.rIfs0(Expr0, InstrsV0, InstrsV1); :};
+
+Ifs ::= IF Expr:Expr0 THEN InstrsV:InstrsV0 ENDIF
+{: RESULT = atrib.rIfs1(Expr0, InstrsV0); :};
+
+InstrsV ::= Instrs:Instrs0
+{: RESULT = atrib.rInstrsV0(Instrs0); :}
+|
+{: RESULT = atrib.rInstrsV1(); :};
+
+Whiles ::= WHILE Expr:Expr0 DO InstrsV:InstrsV0 ENDWHILE
+{: RESULT = atrib.rWhiles(Expr0, InstrsV0); :};
+
+Calls ::= CALL IDENTIFICADOR:identificador0 PAP DecArgs:DecArgs0 PCIERRE PUNTOYCOMA
+{: RESULT = atrib.rCalls(identificador0, DecArgs0); :};
+
+DecArgs ::= Argumentos:Argumentos0
+{: RESULT = atrib.rDecArgs0(Argumentos0); :}
+|
+{: RESULT = atrib.rDecArgs1(); :};
+
+Argumentos ::= Argumentos:Argumentos0 COMA Argumento:Argumento0
+{: RESULT = atrib.rArgumentos0(Argumentos0, Argumento0); :};
+
+Argumentos ::= Argumento:Argumento0
+{: RESULT = atrib.rArgumentos1(Argumento0); :};
+
+Argumento ::= IDENTIFICADOR:identificador0 IGUAL Expr:Expr0
+{: RESULT = atrib.rArgumento(identificador0, Expr0); :};
+
+
+Expr ::= Nivel0:Nivel00
+{: RESULT = atrib.rExpr(Nivel00); :};
+
+Nivel0 ::= Nivel1:Nivel10 OpNivel0:OpNivel00 Nivel1:Nivel11
+{: RESULT = atrib.rNivel00(Nivel10, OpNivel00, Nivel11); :};
+
+Nivel0 ::= Nivel1:Nivel10
+{: RESULT = atrib.rNivel01(Nivel10); :};
+
+Nivel1 ::= Nivel1:Nivel10 OpNivel1:OpNivel10 Nivel2:Nivel20
+{: RESULT = atrib.rNivel10(Nivel10, OpNivel10, Nivel20); :};
+
+Nivel1 ::= Nivel1:Nivel10 OR Nivel2:Nivel20
+{: RESULT = atrib.rNivel11(Nivel10, Nivel20); :};
+
+Nivel1 ::= Nivel2:Nivel20
+{: RESULT = atrib.rNivel12(Nivel20); :};
+
+Nivel2 ::= Nivel2:Nivel20 OpNivel2:OpNivel20 Nivel3:Nivel30
+{: RESULT = atrib.rNivel20(Nivel20, OpNivel20, Nivel30); :};
+
+Nivel2 ::= Nivel2:Nivel20 AND Nivel3:Nivel30
+{: RESULT = atrib.rNivel21(Nivel20, Nivel30); :};
+
+Nivel2 ::= Nivel3:Nivel30
+{: RESULT = atrib.rNivel22(Nivel30); :};
+
+Nivel3 ::= Nivel4:Nivel40 OpNivel3:OpNivel30 Nivel3:Nivel30
+{: RESULT = atrib.rNivel30(Nivel40, OpNivel30, Nivel30); :};
+
+Nivel3 ::= Nivel4:Nivel40
+{: RESULT = atrib.rNivel31(Nivel40); :};
+
+Nivel4 ::= OpNivel4:OpNivel40 Operando:Operando0
+{: RESULT = atrib.rNivel40(OpNivel40, Operando0); :};
+
+Nivel4 ::= Operando:Operando0
+{: RESULT = atrib.rNivel41(Operando0); :};
+
+Operando ::= PAP Expr:Expr0 PCIERRE
+{: RESULT = atrib.rOperando0(Expr0); :};
+
+Operando::= Designador:Designador0 
+{: RESULT = atrib.rOperando1(Designador0); :};
+
+Operando::= ValorTipoBasico: ValorTipoBasico0
+{: RESULT = atrib.rOperando2(ValorTipoBasico0); :};
+
+ValorTipoBasico::= CARACTER:caracter0
+{: RESULT = atrib.rValorTipoBasico0(caracter0); :};
+
+ValorTipoBasico::= ENTERO:entero0
+{: RESULT = atrib.rValorTipoBasico1(entero0); :};
+
+ValorTipoBasico::= NATURALES:naturales0
+{: RESULT = atrib.rValorTipoBasico2(naturales0); :};
+
+ValorTipoBasico::= REAL:real0
+{: RESULT = atrib.rValorTipoBasico3(real0); :};
+
+ValorTipoBasico::= BOOLEANO:booleano0
+{: RESULT = atrib.rValorTipoBasico4(booleano0); :};
+
+OpNivel0::= MENOR
+{: RESULT = atrib.rOpNivel00(); :};
+
+
+OpNivel0::= MAYOR 
+{: RESULT = atrib.rOpNivel01(); :};
+
+OpNivel0::= MENORIGUAL
+{: RESULT = atrib.rOpNivel02(); :};
+
+OpNivel0::= MAYORIGUAL
+{: RESULT = atrib.rOpNivel03(); :};
+
+OpNivel0::= IGUALIGUAL 
+{: RESULT = atrib.rOpNivel04(); :};
+
+OpNivel0::= DISTINTO
+{: RESULT = atrib.rOpNivel05(); :};
+
+OpNivel1::= MAS
+{: RESULT = atrib.rOpNivel10(); :};
+ 
+OpNivel1::= MENOS
+{: RESULT = atrib.rOpNivel11(); :};
+
+OpNivel2::= MULT
+{: RESULT = atrib.rOpNivel20(); :};
+
+OpNivel2::= DIV
+{: RESULT = atrib.rOpNivel21(); :};
+
+OpNivel2::= MOD
+{: RESULT = atrib.rOpNivel22(); :};
+
+OpNivel3::= DESPDER
+{: RESULT = atrib.rOpNivel30(); :};
+
+OpNivel3::= DESPIZQ
+{: RESULT = atrib.rOpNivel31(); :};
+
+OpNivel4::= PAP FLOAT PCIERRE
+{: RESULT = atrib.rOpNivel40(); :};
+
+OpNivel4::= PAP INT PCIERRE
+{: RESULT = atrib.rOpNivel41(); :};
+
+OpNivel4::= PAP CHAR PCIERRE
+{: RESULT = atrib.rOpNivel42(); :};
+
+OpNivel4::= PAP NAT PCIERRE
+{: RESULT = atrib.rOpNivel43(); :};
+
+OpNivel4::= NOT
+{: RESULT = atrib.rOpNivel44(); :};
+
+OpNivel4::= MENOS
+{: RESULT = atrib.rOpNivel45(); :};
+
+Designador ::= IDENTIFICADOR:identificador0
+{: RESULT = atrib.rDesignador0(identificador0); :};
+
+Designador ::= Designador:Designador0 CORCAP Expr:Expr0 CORCCIERRE
+{: RESULT = atrib.rDesignador1(Designador0, Expr0); :};
+
+Designador ::= Designador:Designador0 BARRABAJA NATURALES:naturales
+{: RESULT = atrib.rDesignador2(Designador0, naturales); :};
+

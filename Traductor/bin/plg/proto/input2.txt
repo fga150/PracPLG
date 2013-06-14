@@ -1,0 +1,35 @@
+program : ejemplo{
+
+
+	consts{
+       const natural dim = 10;
+       const integer x = 5;
+    }      	
+	     
+	  tipos{
+       tipo float[dim][dim] tmatriz;
+       tipo (tmatriz,float) tresultado;  
+     } 	
+     
+    vars{
+	   var integer i;
+	   var natural y;
+	   var tresultado t;
+    }
+    
+    subprograms{
+    	subprogram : asigna(integer num1,integer num2){
+			instructions{
+				num1 = 1;
+			}		
+		}
+	}
+	 
+	instructions{
+		i = 3;
+		t [0][0]_1 = 7.9;
+		call asigna(num1 = i, num2 = 2);
+	@	call asigna(num1 = 2, num2 = 2);		
+		out(i);
+	}
+}
