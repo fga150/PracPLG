@@ -40,8 +40,8 @@ public class Arquitectura{
 		int direccion = 0;
 		switch (instruccion){
 			case "apila" : d = getDato(returnValor,linea); apila(d); break;
-			case "apila-dir": direccion = getDireccion(returnValor,linea); apila_dir(direccion); break;
-			case "desapila-dir": direccion = getDireccion(returnValor,linea); desapila_dir(direccion); break;
+			case "apila_dir": direccion = getDireccion(returnValor,linea); apila_dir(direccion); break;
+			case "desapila_dir": direccion = getDireccion(returnValor,linea); desapila_dir(direccion); break;
 			case "in": motor.setFlagLectura(true); motor.lee(); break;
 			case "out": out(); break;
 			case "swap1": swap1(); break;
