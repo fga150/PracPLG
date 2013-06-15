@@ -1407,12 +1407,14 @@ class ErrArgumento implements SemFun{
     	String idProc = (String) args[3].valor();
     	Tipo tipo = (Tipo) args[4].valor();
     	TablaSimbolos ts = (TablaSimbolos) args[5].valor();
+    	String esDesign = (String) args[6].valor();
     	CompruebaTipos c = new CompruebaTipos();
     	
     	String err = err1;
     	if (l.contains(idVar)) err += "El parametro " + idVar + " del subprograma " + idProc + " esta repetido\n";
     	if (!ts.existeParam(idProc, idVar)) err += "El identificador " + idVar + " no es un parametro del subprograma " + idProc + "\n";
     	else if (!c.compatiblesAsign(ts.dameTipoParam(idProc, idVar), tipo)) err += "Error de tipos en la asignacion del parametro " + idVar + " del subprograma " + idProc + "\n";
+    	else if (ts.esModoPvar(idProc, idVar) && esDesign.equals("false")) err += "El parametro " + idVar + " del subprograma " + idProc + " debe ser un designador";
     	
     	return err;    	
     }
@@ -1990,14 +1992,16 @@ class DameTipoBaseArray implements SemFun{
     public Object eval(Atributo... args) {
     	Tipo t = (Tipo) args[1].valor();
         if (t instanceof TipoError) return new TipoError("terror");
-        TipoArray tipo;
         
+        Tipo tipo = t;
+        TipoArray t2;
+    	if (tipo.getTipo().equals("elemTupla")) tipo = ((TipoElemTupla)tipo).getTipoElem(); 
         try {
-        	tipo = (TipoArray) t;
+        	t2 = (TipoArray) tipo;
         } catch (Exception e) {
         	return new TipoError("terror");
         }
-    	return tipo.getTipoBase();
+    	return t2.getTipoBase();
     }
     
 }
@@ -2011,8 +2015,10 @@ class ErrDesignador1 implements SemFun{
     	Tipo des1Tipo = (Tipo) args[1].valor();
     	Tipo exprTipo = (Tipo) args[2].valor();
     	
+    	Tipo t = des1Tipo;
+    	if (t.getTipo().equals("elemTupla")) t = ((TipoElemTupla)t).getTipoElem(); 
     	String err = err1;
-    	if (!des1Tipo.getTipo().equals("array")) err = err + "El tipo del designador no es tipo array\n";
+    	if (!t.getTipo().equals("array")) err = err + "El tipo del designador no es tipo array\n";
     	if (!exprTipo.getTipo().equals("natural")) err = err + "El tipo de la expresion debe ser natural\n";
     	return err;
     }
@@ -2071,7 +2077,14 @@ class DameTipoElemTupla implements SemFun{
     	String lex = (String) args[1].valor();
         Tipo t = (Tipo) args[2].valor();
         if (t instanceof TipoError) return new TipoError("terror");
-        TipoTupla tipo = (TipoTupla)t;
+        
+        if (t.getTipo().equals("elemTupla")) t = ((TipoElemTupla)t).getTipoElem();
+        TipoTupla tipo;
+        try {
+        	tipo = (TipoTupla)t;
+        } catch (Exception e) {
+        	return new TipoError("terror");
+        }
         
     	int lexInt = Integer.parseInt(lex);
     	if (lexInt >= tipo.getNElem()) return new TipoError("terror");
@@ -2090,6 +2103,7 @@ class ErrDesignador2 implements SemFun{
     	int lexInt = Integer.parseInt((String) args[2].valor());
     	
     	String err = err1;
+    	if (tipo.getTipo().equals("elemTupla")) tipo = ((TipoElemTupla)tipo).getTipoElem();
     	if (!tipo.getTipo().equals("tup")) err = err + "El tipo del designador no es tipo tupla\n";
     	else if (lexInt >= ((TipoTupla)tipo).getNElem()) return err = err + "El indice de la tupla se sale de rango\n";
     	return err;
@@ -2105,7 +2119,14 @@ class CodDesignador2 implements SemFun{
     	String codDesig = (String) args[0].valor();
         Tipo t = (Tipo) args[1].valor();
         if (t instanceof TipoError) return "codError";
-        TipoTupla tipo = (TipoTupla)t;
+        
+        if (t.getTipo().equals("elemTupla")) t = ((TipoElemTupla)t).getTipoElem();
+        TipoTupla tipo;
+        try {
+        	tipo = (TipoTupla)t;
+        } catch (Exception e){
+        	return "codError";
+        }
         String lex = (String) args[2].valor();
         int lexInt = Integer.parseInt(lex);    
     	
@@ -3885,7 +3906,7 @@ public class EAtribucion extends Atribucion{
 		dependencias(expr.a("etqh"), argumento.a("etqh"));
 		dependencias(argumento.a("etq"), expr.a("etq"));
 		dependencias(argumento.a("cod"), argumento.a("tsh"), argumento.a("idProch"), astring, expr.a("cod"), expr.a("esDesignador"));
-		dependencias(argumento.a("err"), expr.a("err"), argumento.a("listaParamsh"), astring, argumento.a("idProch"), expr.a("tipo"), argumento.a("tsh"));
+		dependencias(argumento.a("err"), expr.a("err"), argumento.a("listaParamsh"), astring, argumento.a("idProch"), expr.a("tipo"), argumento.a("tsh"), expr.a("esDesignador"));
 		dependencias(argumento.a("listaParams"), argumento.a("listaParamsh"), astring);
 		dependencias(argumento.a("numParams"), argumento.a("numParamsh"));
 	
