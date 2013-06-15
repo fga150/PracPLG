@@ -1387,7 +1387,7 @@ class CodArgumento implements SemFun{
     	cod += "apila(" + ts.dameDespProc(idProc,idVar) + ")\n";
     	cod += "suma\n";
     	cod += cod1;
-    	if (ts.esModoPvar(idProc, idVar) || esDesignador.equals("false")) cod += "desapila_ind\n"; //FIXME apila_ind?¿
+    	if (ts.esModoPvar(idProc, idVar) || esDesignador.equals("false")) cod += "desapila_ind\n";
     	else cod += "mueve(" + ts.dameTamParametro(idProc, idVar) + ")\n";
     	
     	return cod;
@@ -3529,7 +3529,7 @@ public class EAtribucion extends Atribucion{
          dependencias(expr.a("tsh"), asign.a("tsh"));     
          dependencias(designador.a("etqh"), asign.a("etqh"));   
          dependencias(expr.a("etqh"), designador.a("etq"));    
-         dependencias(asign.a("etq"), expr.a("etq"), expr.a("esDesignador"));      
+         dependencias(asign.a("etq"), expr.a("etq"));      
          dependencias(asign.a("cod"), designador.a("cod"), expr.a("cod"), expr.a("esDesignador"), expr.a("tipo"));      
          dependencias(asign.a("err"), designador.a("err"), expr.a("err"), designador.a("tipo"), expr.a("tipo"), designador.a("esConstante"));      
 
@@ -3538,7 +3538,7 @@ public class EAtribucion extends Atribucion{
 
          calculo(designador.a("etqh"), asignacion);   
          calculo(expr.a("etqh"), asignacion);    
-         calculo(asign.a("etq"), suma12Designador);      
+         calculo(asign.a("etq"), suma1);      
          calculo(asign.a("cod"), codAsign);     
          calculo(asign.a("err"), errAsign);      
          
@@ -4031,7 +4031,7 @@ public class EAtribucion extends Atribucion{
 
          dependencias(nivel11.a("tsh"), nivel10.a("tsh"));
          dependencias(nivel2.a("tsh"), nivel10.a("tsh"));
-         dependencias(nivel11.a("etq"), nivel10.a("etqh"));
+         dependencias(nivel11.a("etqh"), nivel10.a("etqh"));
          dependencias(nivel2.a("etqh"), nivel11.a("etq"), nivel11.a("esDesignador"));
          dependencias(nivel10.a("etq"), nivel2.a("etq"), nivel2.a("esDesignador"));
          dependencias(nivel10.a("cod"), nivel11.a("cod"), nivel11.a("esDesignador"), nivel2.a("cod"), nivel2.a("esDesignador"), opNivel1.a("lex"));
@@ -4044,7 +4044,7 @@ public class EAtribucion extends Atribucion{
        
          calculo(nivel11.a("tsh"), asignacion); 
          calculo(nivel2.a("tsh"), asignacion); 
-         calculo(nivel11.a("etq"), asignacion);
+         calculo(nivel11.a("etqh"), asignacion);
          calculo(nivel2.a("etqh"), suma1siDesignador);
          calculo(nivel10.a("etq"), suma12Designador);
          calculo(nivel10.a("cod"), codNivel10);
