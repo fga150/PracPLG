@@ -313,13 +313,13 @@ public class TablaSimbolos {
 		else if (op.equals("!="))
 			res = "distinto";
 		else if (op.equals("+"))
-			res = "suma";
+			res = "suma_swap";
 		else if (op.equals("-"))
-			res = "resta";
+			res = "resta_swap";
 		else if (op.equals("*"))
-			res = "multiplica";
+			res = "multiplica_swap";
 		else if (op.equals("/"))
-			res = "divide";
+			res = "divide_swap";
 		else if (op.equals("%"))
 			res = "modulo";
 		else if (op.equals("<<"))

@@ -2034,12 +2034,13 @@ class CodDesignador1 implements SemFun{
         String esDesign = (String) args[2].valor();
         
         Tipo t = (Tipo) args[3].valor();
+        if (t.getTipo().equals("elemTupla")) t = ((TipoElemTupla)t).getTipoElem();
         TipoArray tipo;
         if (t instanceof TipoError) return "errorCod";
         try {
         	tipo = (TipoArray) t;
         } catch (Exception e) {
-        	return "codError";
+        	return "codError1\n";
         }
     	
     	String cod = codDesig + codExpr;
@@ -2118,19 +2119,19 @@ class CodDesignador2 implements SemFun{
     	
     	String codDesig = (String) args[0].valor();
         Tipo t = (Tipo) args[1].valor();
-        if (t instanceof TipoError) return "codError";
+        if (t instanceof TipoError) return "codError2";
         
         if (t.getTipo().equals("elemTupla")) t = ((TipoElemTupla)t).getTipoElem();
         TipoTupla tipo;
         try {
         	tipo = (TipoTupla)t;
         } catch (Exception e){
-        	return "codError";
+        	return "codError3";
         }
         String lex = (String) args[2].valor();
         int lexInt = Integer.parseInt(lex);    
     	
-    	if (lexInt >= tipo.getNElem()) return "codError";
+    	if (lexInt >= tipo.getNElem()) return "codError4";
     	String cod = codDesig;
     	cod = cod + "apila(" + tipo.getTipoElemTupla(lexInt).getDespl() + ")\n";
     	cod = cod + "suma\n";
