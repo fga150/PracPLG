@@ -3630,7 +3630,7 @@ public class EAtribucion extends Atribucion{
          dependencias(instrsV0.a("tsh"), ifs.a("tsh"));
          dependencias(instrsV1.a("tsh"), ifs.a("tsh"));
          dependencias(expr.a("etqh"), ifs.a("etqh"));
-         dependencias(instrsV0.a("etqh"), expr.a("etqh"), expr.a("esDesignador"));
+         dependencias(instrsV0.a("etqh"), expr.a("etq"), expr.a("esDesignador"));
          dependencias(instrsV1.a("etqh"), instrsV0.a("etq"));
          dependencias(ifs.a("etq"), instrsV1.a("etq"));
          dependencias(ifs.a("cod"), expr.a("cod"), expr.a("esDesignador"), instrsV0.a("etq"), instrsV0.a("cod"), instrsV1.a("etq"), instrsV1.a("cod"));
@@ -3641,7 +3641,7 @@ public class EAtribucion extends Atribucion{
          calculo(instrsV1.a("tsh"), asignacion);
 
          calculo(expr.a("etqh"), asignacion);
-         calculo(instrsV0.a("etqh"), suma1siDesignador);
+         calculo(instrsV0.a("etqh"), suma12Designador);
          calculo(instrsV1.a("etqh"), suma1);
          calculo(ifs.a("etq"), asignacion);
          calculo(ifs.a("cod"), codIfs0);
@@ -3658,7 +3658,7 @@ public class EAtribucion extends Atribucion{
          dependencias(expr.a("tsh"), ifs.a("tsh"));
          dependencias(instrsV.a("tsh"), ifs.a("tsh"));
          dependencias(expr.a("etqh"), ifs.a("etqh"));
-         dependencias(instrsV.a("etqh"), expr.a("etqh"), expr.a("esDesignador"));
+         dependencias(instrsV.a("etqh"), expr.a("etq"), expr.a("esDesignador"));
          dependencias(ifs.a("etq"), instrsV.a("etq"));
          dependencias(ifs.a("cod"), expr.a("cod"), expr.a("esDesignador"), instrsV.a("etq"), instrsV.a("cod"));
          dependencias(ifs.a("err"), expr.a("err"), instrsV.a("er"));
@@ -3667,7 +3667,7 @@ public class EAtribucion extends Atribucion{
          calculo(expr.a("tsh"), asignacion);
          calculo(instrsV.a("tsh"), asignacion);
          calculo(expr.a("etqh"), asignacion);
-         calculo(instrsV.a("etqh"), suma1siDesignador);
+         calculo(instrsV.a("etqh"), suma12Designador);
          calculo(ifs.a("etq"),asignacion);
          calculo(ifs.a("cod"), codIfs1);
          calculo(ifs.a("err"),concatena);

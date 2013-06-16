@@ -20,10 +20,9 @@ program : ejemplo{
        }
 	   instructions{
 	     i = 0;
-	     while (i < dim)do
-	      a[i] = i * num2;
-	      i = i + 1;
-	     endwhile
+	     if (i == 0) then a[0] = 300; 
+	     else a[1] = 400;
+	     endif
 	   }  
   }
  }
