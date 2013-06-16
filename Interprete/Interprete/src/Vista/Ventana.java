@@ -351,9 +351,14 @@ public class Ventana extends JFrame {
 		int a = dtm.getRowCount()-1;
 		for(int i=a;i>=0;i--) dtm.removeRow(i);
 	}
+	
+	public void imprimeIntro(){
+		textoConsola.setText(textoConsola.getText()+"\n");
+		
+	}
 
 	public void imprimeOut(String string) {
-		textoConsola.setText(textoConsola.getText()+string+"\n");
+		textoConsola.setText(textoConsola.getText()+string);
 	}
 
 	public void reinciar() {

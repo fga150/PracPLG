@@ -46,6 +46,7 @@ public class Controlador implements Observer{
 			else if(arg.equals(UpdateInfo.In)){
 				lecturaOn = true;
 				ventana.setEstado("EN ESPERA DE DATOS");
+				ventana.imprimeIntro();
 			}
 	}
 
