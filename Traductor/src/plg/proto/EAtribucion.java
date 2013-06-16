@@ -627,9 +627,9 @@ class ErrVariables0 implements SemFun{
     	
     	String err = err1 + err2;
     	if (ts.esPalabraReservada(id)) err = err + "El identificador " + id + " es una palabra reservada\n";
-    	else if (ts.existeId(id)) {
-    		err = err + "El identificador " + id + " ya esta declarado previamente\n";
-    	}
+    	else if (ts.nivel2Activado() && ts.existeIdSegundoNivel(id)) err = err + "El identificador " + id + " ya esta declarado previamente\n";
+    	else if (!ts.nivel2Activado() && ts.existeIdPrimerNivel(id)) err = err + "El identificador " + id + " ya esta declarado previamente\n";
+   
     	return err;
     }
     
