@@ -11,16 +11,20 @@ import java_cup.runtime.*;
 
 public class Main {
   public static void main(String[] args) throws Exception {   
-  //    Parser p = new Parser(new Scanner(new FileInputStream("C:/Users/Beatriz/Documents/Uni/CUARTO/IS/WorkspaceBueno/PlgTipos/src/plg/proto/input.txt")),new DefaultSymbolFactory());
-	  parser p = new parser(new Scanner(new FileInputStream("src/plg/proto/input2.txt")),new DefaultSymbolFactory());
+ 	  parser p = new parser(new Scanner(new FileInputStream("src/plg/proto/input2.txt")),new DefaultSymbolFactory());
 	     
-	  Symbol s= p.parse();
+	  Symbol s= null;
+	  try {
+		  s = p.parse();
+	  } catch (Exception e){
+		  return;
+	  }
      
 	  String err = (String) ((TAtributos) s.value).a("err").valor();
 	  String cod = (String) ((TAtributos) s.value).a("cod").valor();
 	  
-	  if (err.equals("")) System.out.println(cod);
-	  else System.out.println(err);  
+	  if (err.equals("")) System.out.println("\n\n\n\nEl codigo resultante es: \n\n" + cod);
+	  else System.out.println("\n\n\n\nSe han encontrado los siguientes errores de compilacion: \n\n" + err);  
 	  
 	  FileWriter fstream = new FileWriter("../../Output.plg");
 	  BufferedWriter out = new BufferedWriter(fstream);
