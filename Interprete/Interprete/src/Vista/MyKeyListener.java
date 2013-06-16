@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 
 import javax.swing.JEditorPane;
+import javax.swing.JTextArea;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.Element;
@@ -14,11 +15,11 @@ import Controlador.Controlador;
 public class MyKeyListener implements KeyListener{
 	
 	private Controlador controlador;
-	private JEditorPane textoConsola;
+	private JTextArea textoConsola;
 	
-	public MyKeyListener(Controlador controlador, JEditorPane textoConsola) {
+	public MyKeyListener(Controlador controlador, JTextArea textoConsola2) {
 		this.controlador = controlador;
-		this.textoConsola = textoConsola;
+		this.textoConsola = textoConsola2;
 	}
 
 	public void keyTyped(KeyEvent arg0){

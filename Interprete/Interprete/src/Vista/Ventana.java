@@ -31,7 +31,7 @@ public class Ventana extends JFrame {
 	private JLabel registroSwap1;
 	private JLabel registroSwap2;
 	private JScrollPane scrollPane1;
-	private JEditorPane textoConsola;
+	private JTextArea textoConsola;
 	private JScrollPane scrollPane3;
 	private JEditorPane textoPrograma;
 	private JScrollPane scrollPane4;
@@ -65,7 +65,7 @@ public class Ventana extends JFrame {
 		hSpacer = new JPanel(null);
 		registroSwap1 = new JLabel();
 		registroSwap2 = new JLabel();
-		textoConsola = new JEditorPane();
+		textoConsola = new JTextArea();
 		textoPrograma = new JEditorPane();
 		scrollPane3 = new JScrollPane(textoPrograma);
 		scrollPane1 = new JScrollPane(textoConsola);
@@ -177,11 +177,13 @@ public class Ventana extends JFrame {
 		{
 
 			//---- textArea1 ----
-			textoConsola.setPreferredSize(new Dimension(300, 155));
-			textoConsola.setMaximumSize(new Dimension(300,155));
-			scrollPane1.setMaximumSize(new Dimension(300,155));
-			scrollPane1.setViewportView(textoConsola);	
+
+			scrollPane1.setPreferredSize(new Dimension(300, 155));	
 			textoConsola.addKeyListener(new MyKeyListener(this.controlador,this.textoConsola));
+
+
+		        // create the middle panel components
+		        scrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 		contentPane.add(scrollPane1,BorderLayout.SOUTH);
 		}
