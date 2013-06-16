@@ -93,6 +93,7 @@ public class Controlador implements Observer{
 		int count = Integer.parseInt(s);
 		ventana.setPila(motor.getPila(),count);
 		ventana.reinciar();
+		this.lecturaOn = false;
 	}
 
 	public boolean isLecturaOn() {

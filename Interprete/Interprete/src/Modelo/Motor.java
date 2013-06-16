@@ -38,6 +38,7 @@ public class Motor extends Observable {
 	
 	public void reiniciarMotor(){
 		this.arquitectura.iniciar();
+		this.flagLectura = false;
 		this.notifyObservers(UpdateInfo.Inicio);
 	}
 
