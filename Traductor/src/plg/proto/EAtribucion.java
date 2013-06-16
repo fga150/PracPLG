@@ -34,6 +34,16 @@ class Asignacion implements SemFun{
     
 }
 
+class AsignacionDependencias1 implements SemFun{
+
+    @Override
+    public Object eval(Atributo... args) {
+    	String cod = (String) args[1].valor();
+    	return args[0].valor();
+    }
+    
+}
+
 class DevuelveConst implements SemFun{
 
     @Override
@@ -2192,6 +2202,7 @@ class Suma3 implements SemFun{
 
 public class EAtribucion extends Atribucion{
 	private static SemFun asignacion = new Asignacion();
+	private static SemFun asignacionDependencias1 = new AsignacionDependencias1();
     private static SemFun devuelveConst= new DevuelveConst();
     private static SemFun devuelveTipo= new DevuelveTipo();
     private static SemFun creaTipoBasicoCharacter= new creaTipoBasicoCharacter();
@@ -3016,7 +3027,7 @@ public class EAtribucion extends Atribucion{
 		TAtributos subprogramas0 = atributosPara("subprogramas0", "tsh", "etq", "etqh", "cod", "err", "ts");
 	
 		dependencias(subprogramas1.a("tsh"), subprogramas0.a("tsh"));
-		dependencias(subprograma.a("tsh"), subprogramas1.a("ts"));  
+		dependencias(subprograma.a("tsh"), subprogramas1.a("ts"), subprogramas1.a("cod"));  
 		dependencias(subprogramas0.a("ts"), subprogramas1.a("ts"), subprograma.a("lex"), subprograma.a("clase"), subprograma.a("tipo"), subprogramas0.a("err")); 
 		dependencias(subprogramas0.a("cod"), subprogramas1.a("cod"), subprograma.a("cod"));  
 		dependencias(subprogramas1.a("etqh"), subprogramas0.a("etqh")); 
@@ -3026,7 +3037,7 @@ public class EAtribucion extends Atribucion{
 	
 	
 		calculo(subprogramas1.a("tsh"), asignacion);
-		calculo(subprograma.a("tsh"), asignacion);  
+		calculo(subprograma.a("tsh"), asignacionDependencias1);
 		calculo(subprogramas0.a("ts"), compruebaYanyadeIdSubprogramas0);  
 		calculo(subprogramas0.a("cod"), concatena);  
 		calculo(subprogramas1.a("etqh"), asignacion);  
