@@ -1129,7 +1129,7 @@ class CodLectura implements SemFun{
     public Object eval(Atributo... args) {
     	String cod1 = (String) args[0].valor();
     	
-    	String cod = cod1 + "in\n" + "desapila_ind_compruebaTipos\n";
+    	String cod = cod1 + "in\n" + "desapila_ind\n";
     	return cod;
     }
     
