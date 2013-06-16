@@ -458,7 +458,7 @@ public class Arquitectura{
 			float dato1 = (float) pila[contadorPila-1];
 			float dato2 = (float) pila[contadorPila];
 			int temp = (int) dato1 % (int) dato2 ;
-			pila[contadorPila-1] = temp;
+			pila[contadorPila-1] = (float)temp;
 			contadorPila--;
 			contadorPrograma++;
 		}
@@ -473,7 +473,7 @@ public class Arquitectura{
 			float dato1 = (float) pila[contadorPila-1];
 			float dato2 = (float) pila[contadorPila];
 			float temp = (int)dato1 << (int)dato2;
-			pila[contadorPila-1] = temp;
+			pila[contadorPila-1] = (float) temp;
 			contadorPila--;
 			contadorPrograma++;
 		}
@@ -488,7 +488,7 @@ public class Arquitectura{
 			float dato1 = (float) pila[contadorPila-1];
 			float dato2 = (float) pila[contadorPila];
 			float temp = (int)dato1 >> (int)dato2;
-			pila[contadorPila-1] = temp;
+			pila[contadorPila-1] = (float) temp;
 			contadorPila--;
 			contadorPrograma++;
 		}

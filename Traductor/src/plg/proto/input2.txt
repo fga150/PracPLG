@@ -32,7 +32,7 @@ program : ejemplo{
   }
   
  instructions{
-  t _0[3][4] = 1;
+  t _0[3][4] = 200 >> 2;
   call asigna(num1 = t, num2 = 2);
   out(t _0[3][4]);
  }
