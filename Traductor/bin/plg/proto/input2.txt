@@ -16,16 +16,16 @@ program : ejemplo{
     subprograms{
      subprogram : asigna(array * a,integer num2){
        vars{
-          var integer i;
+          var natural i;
        }
 	   instructions{
 	     i = 2;
-	     a[dim - 1] = 2 * 3;
+	      a[i] = i * num2;
 	   }  
   }
  }
   
  instructions{
-  call asigna(a = a, num2 = 2);
+  call asigna(a = a, num2 = 3);
  }
 }

@@ -121,7 +121,8 @@ public class TablaSimbolos {
 			} else {
 				TSElem elem = new TSElem(clase, proximaDirTsNivel2, tipo);
 				tsNivel2.put(id, elem);
-				proximaDirTsNivel2 = proximaDirTsNivel2 + tipo.getTam();
+				if (clase.equals("pvar")) proximaDirTsNivel2++;
+				else proximaDirTsNivel2 = proximaDirTsNivel2 + tipo.getTam();
 			}
 		}
 	}

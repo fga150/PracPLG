@@ -947,8 +947,6 @@ class ParamsParametro0 implements SemFun{
     	TipoParametro param;
     	if (err.equals("")) {
     		param = new TipoParametro("var", Integer.parseInt(desp), tipo, id);
-    		System.out.print("\n\n\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-    		System.out.print("DESP PARAMETROS: "+ desp+"\n\n\n");
     	}
     	else param = new TipoParametro("var", Integer.parseInt(desp), new TipoError("terrorRec"), id);
     	Vector<TipoParametro> v = new Vector<TipoParametro>();
@@ -3233,7 +3231,7 @@ public class EAtribucion extends Atribucion{
 		dependencias(parametro.a("params"), parametro.a("desph"), declaracionTipo.a("tipo"), astring);
 		dependencias(parametro.a("tipo"), declaracionTipo.a("tipo"));
 		dependencias(parametro.a("lex"), astring);
-		dependencias(parametro.a("desp"), parametro.a("desph"), declaracionTipo.a("tipo"));
+		dependencias(parametro.a("desp"), parametro.a("desph"));
 		dependencias(parametro.a("err"), declaracionTipo.a("err"), parametro.a("tsh"), astring);
 	
 	
