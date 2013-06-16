@@ -25,9 +25,25 @@ program : ejemplo{
 	     endif
 	   }  
   }
+  
+   subprogram : lala(){
+       vars{
+          var natural i;
+       }
+	   instructions{	
+			if (a[0]>0) then a[0] = -70; else a[0] = 80; endif
+			if (a[1]<0) then a[1] = 100; endif
+	   }  
+  }
  }
   
  instructions{
-  call asigna(a = a, num2 = 3);
+ @ call asigna(a = a, num2 = 3);
+	a[0] = 18;
+	a[1] = -7;
+	a[2] = 0;
+	
+	call lala();
+
  }
 }

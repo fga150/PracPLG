@@ -119,8 +119,8 @@ class CreaTipoNoBasicoIden implements SemFun{
 	        TablaSimbolos ts = (TablaSimbolos) args[0].valor();
 	        String id = (String) args[1].valor();
 	        
-	        if (!ts.existeId(id)) return null;
-	        else if (!ts.esTipo(id)) return null;
+	        if (!ts.existeId(id)) return new TipoError("terror");
+	        else if (!ts.esTipo(id)) return new TipoError("terror");
 	        else return ts.getTipo(id);
 	    }
     
@@ -489,7 +489,12 @@ class CompruebaTuplasAnyadeCampo implements SemFun{
     public Object eval(Atributo... args) {
     	String errTuplas1 = (String) args[0].valor();
     	String errDeclTipo = (String) args[1].valor();
-    	TipoTupla tipoTuplas = (TipoTupla) args[2].valor();
+    	TipoTupla tipoTuplas;
+    	try{
+    		tipoTuplas = (TipoTupla) args[2].valor();
+    	} catch (Exception e) {
+    		return new TipoError("terror");
+    	}
     	Tipo tipoDecl = (Tipo) args[3].valor();
     	if (errTuplas1.equals("") && errDeclTipo.equals("")) tipoTuplas.anyadeElemTupla(tipoDecl);
     	return tipoTuplas;
@@ -505,7 +510,7 @@ class CompruebaYCreaTuplaConCampo implements SemFun{
     	Tipo tipoDecl = (Tipo) args[1].valor();
     	
     	if (err.equals("")) return new TipoTupla(tipoDecl);
-    	else return null;
+    	else return new TipoError("terror");
     }
     
 }
@@ -521,12 +526,12 @@ class CompruebaYcreaArray implements SemFun{
     	try {
     		nElemInt = Integer.parseInt(nElem);
     	} catch (Exception e){
-    		return null;
+    		return new TipoError("terror");
     	}
     	Tipo tipoDecl = (Tipo) args[3].valor();
     	
     	if (errIndice1.equals("") && errDeclTipo.equals("")) return new TipoArray(nElemInt, tipoDecl);
-    	else return null;
+    	else return new TipoError("terror");
     }
     
 }
@@ -991,7 +996,7 @@ class CalculaDesp implements SemFun{
     public Object eval(Atributo... args) {
     	String desp = (String) args[0].valor();
     	Tipo tipo = (Tipo) args[1].valor();
-    	if (tipo == null) return "-1";
+    	if (tipo == null && tipo.getTipo().equals("terror")) return "-1";
     	
     	int despInt = Integer.parseInt(desp);
     	despInt = despInt + tipo.getTam();
@@ -1036,7 +1041,7 @@ class CodAsign implements SemFun{
     	String cod2 = (String) args[1].valor();
     	String esDesign = (String) args[2].valor();
     	Tipo tExp = (Tipo) args[3].valor();
-    	if (tExp == null) return "";
+    	if (tExp == null && tExp.getTipo().equals("terror")) return "errorCod5";
     	
     	String cod = cod1 + cod2;
     	if (esDesign.equals("false")) cod = cod + "desapila_ind\n";
@@ -1271,13 +1276,15 @@ class CodWhile implements SemFun{
     
 }
 
-class Suma7 implements SemFun{
+class Suma67 implements SemFun{
 
     @Override
     public Object eval(Atributo... args) {
     	String val = (String)args[0].valor();
+    	String cod = (String)args[1].valor();
     	int valInt = Integer.parseInt(val);
-    	valInt = valInt + 7;
+    	if (cod.equals("")) valInt = valInt + 6;
+    	else valInt = valInt + 7;
     	return Integer.toString(valInt);
     }
     
@@ -1295,9 +1302,14 @@ class CodCalls implements SemFun{
     	CodigoProcs c = new CodigoProcs();
     	
     	String cod = cod1;
-    	cod += "desapila\n";
-    	cod += c.guardaRetorno(Integer.parseInt(etq) + 7);
-    	cod += "ir_a(" + ts.dameDirComienzoProc(id) + ")\n";
+    	if (!cod.equals("")){
+    		cod += "desapila\n";
+    		cod += c.guardaRetorno(Integer.parseInt(etq) + 7);
+    		cod += "ir_a(" + ts.dameDirComienzoProc(id) + ")\n";
+    	} else { //Call vacio
+    		cod += c.guardaRetorno(Integer.parseInt(etq) + 6);
+    		cod += "ir_a(" + ts.dameDirComienzoProc(id) + ")\n";
+    	}
     	
     	return cod;
     	
@@ -2286,7 +2298,7 @@ public class EAtribucion extends Atribucion{
     private static SemFun codIfs0 = new CodIfs0();
     private static SemFun codIfs1 = new CodIfs1();
     private static SemFun codWhile = new CodWhile();
-    private static SemFun suma7 = new Suma7();
+    private static SemFun suma67 = new Suma67();
     private static SemFun codCalls = new CodCalls();
     private static SemFun errCalls = new ErrCalls();
     private static SemFun creaListaParamsVacia = new CreaListaParamsVacia();
@@ -3744,14 +3756,14 @@ public class EAtribucion extends Atribucion{
 	
 		dependencias(decArgs.a("tsh"), calls.a("tsh"));
 		dependencias(decArgs.a("etqh"), calls.a("etqh"));
-		dependencias(calls.a("etq"), decArgs.a("etq"));
+		dependencias(calls.a("etq"), decArgs.a("etq"), decArgs.a("cod"));
 		dependencias(calls.a("cod"), decArgs.a("etq"), calls.a("tsh"), astring, decArgs.a("cod"));
 		dependencias(decArgs.a("idProch"), astring);
 		dependencias(calls.a("err"), decArgs.a("err"), calls.a("tsh"), astring, decArgs.a("numParams"));
 	
 		calculo(decArgs.a("tsh"), asignacion);
 		calculo(decArgs.a("etqh"), asignacion);
-		calculo(calls.a("etq"), suma7);
+		calculo(calls.a("etq"), suma67);
 		calculo(calls.a("cod"), codCalls);
 		calculo(decArgs.a("idProch"), asignacion);
 		calculo(calls.a("err"), errCalls);
@@ -3799,7 +3811,7 @@ public class EAtribucion extends Atribucion{
 	public TAtributos rDecArgs1(){
 		regla("DecArgs:: VACIO");
 
-		TAtributos decArgs= atributosPara("decArgs", "etq", "etqh", "cod", "err", "numParams");
+		TAtributos decArgs= atributosPara("decArgs", "etq", "etqh", "cod", "err", "numParams", "tsh", "idProch");
 	
 	
 		dependencias(decArgs.a("etq"), decArgs.a("etqh"));

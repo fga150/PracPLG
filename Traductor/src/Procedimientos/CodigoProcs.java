@@ -65,7 +65,7 @@ public class CodigoProcs {
 		cod += "apila(1)\n";
 		cod += "suma\n";
 		cod += "desapila_dir(0)\n";
-		cod += "apila(0)\n";
+		cod += "apila(0)\n"; //FIXME
 		cod += "desapila_dir(1)\n";
 		return cod;
 	}
