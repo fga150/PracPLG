@@ -3716,7 +3716,7 @@ public class EAtribucion extends Atribucion{
          calculo(expr.a("tsh"), asignacion);       
          calculo(instrsV.a("tsh"), asignacion);  
          calculo(expr.a("etqh"), asignacion);  
-         calculo(instrsV.a("etqh"), suma1siDesignador);  
+         calculo(instrsV.a("etqh"), suma12Designador);  
          calculo(whiles.a("etq"), suma1);  
          calculo(whiles.a("cod"), codWhile);  
          calculo(whiles.a("err"), concatena);  
@@ -3977,7 +3977,7 @@ public class EAtribucion extends Atribucion{
          calculo(nivel11.a("tsh"), asignacion);       
          calculo(nivel10.a("etqh"), asignacion);
          calculo(nivel11.a("etqh"), suma1siDesignador);
-         calculo(nivel0.a("etq"), suma1siDesignador);
+         calculo(nivel0.a("etq"), suma12Designador);
          calculo(nivel0.a("cod"), codExpr);
          calculo(nivel10.a("irvh"), suma1siDesignador);
          calculo(nivel10.a("irfh"), suma1siDesignador);
@@ -4078,7 +4078,7 @@ public class EAtribucion extends Atribucion{
          calculo(nivel2.a("tsh"), asignacion); 
          calculo(nivel11.a("etqh"), asignacion);
          calculo(nivel2.a("etqh"), suma34Designador);
-         calculo(nivel10.a("etq"), suma1siDesignador);
+         calculo(nivel10.a("etq"), suma12Designador);
          calculo(nivel10.a("cod"), codNivel11);
          calculo(nivel11.a("irvh"), suma1siDesignador);
          calculo(nivel11.a("irfh"), suma23Designador);
@@ -4176,7 +4176,7 @@ public class EAtribucion extends Atribucion{
          calculo(nivel3.a("tsh"), asignacion);        
          calculo(nivel21.a("etqh"), asignacion);  
          calculo(nivel3.a("etqh"), suma34Designador);  
-         calculo(nivel20.a("etq"), suma1siDesignador);
+         calculo(nivel20.a("etq"), suma12Designador);
          calculo(nivel20.a("cod"), codNivel21);  
          calculo(nivel21.a("irvh"), suma1siDesignador);    
          calculo(nivel21.a("irfh"), suma23Designador);    
