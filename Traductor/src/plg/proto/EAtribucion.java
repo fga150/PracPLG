@@ -3,6 +3,8 @@ package plg.proto;
 import java.util.Iterator;
 import java.util.Vector;
 
+import java_cup.runtime.Symbol;
+
 import es.ucm.fdi.plg.evlib.Atribucion;
 import es.ucm.fdi.plg.evlib.Atributo;
 import es.ucm.fdi.plg.evlib.LAtributo;
@@ -1757,6 +1759,7 @@ class ErrNivel4 implements SemFun{
 
     	String err = err0;
     	if (tipo.getTipo().equals("terror")) err = err + "Error de tipos\n";
+    	
     	return err;
     }
     

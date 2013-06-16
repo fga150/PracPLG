@@ -25,9 +25,9 @@ public class MainConsola {
 		String fuente = args[0];
 		String destino = args[1];
 		
-		parser p;
+		Parser p;
 		try {
-			p = new parser(new Scanner(new FileInputStream(fuente)),new DefaultSymbolFactory());
+			p = new Parser(new Scanner(new FileInputStream(fuente)),new DefaultSymbolFactory());
 		} catch (FileNotFoundException e) {
 			System.out.println("Se ha metido incorrectamente la direccion del fichero del programa fuente.");
 			return;
@@ -36,27 +36,28 @@ public class MainConsola {
 		Symbol s = null;
 		try {
 			s = p.parse();
+			String err = (String) ((TAtributos) s.value).a("err").valor();
+			String cod = (String) ((TAtributos) s.value).a("cod").valor();
+			  
+			if (!err.equals("")) System.out.println("Se han encontrado los siguientes errores de compilacion: \n\n" + err);
+			else {
+				FileWriter fstream;
+				try {
+					fstream = new FileWriter(destino);
+					BufferedWriter out = new BufferedWriter(fstream);
+					  
+					out.write(cod);
+					out.close();
+				} catch (IOException e) {
+					System.out.println("Ha habido un error al escribir el programa destino en fichero.");
+					return;
+				}
+			}
 		} catch (Exception e) {
 			return;
 		}
 	     
-		String err = (String) ((TAtributos) s.value).a("err").valor();
-		String cod = (String) ((TAtributos) s.value).a("cod").valor();
-		  
-		if (!err.equals("")) System.out.println("\n\nSe han encontrado los siguientes errores de compilacion: \n\n" + err);
-		else {
-			FileWriter fstream;
-			try {
-				fstream = new FileWriter(destino);
-				BufferedWriter out = new BufferedWriter(fstream);
-				  
-				out.write(cod);
-				out.close();
-			} catch (IOException e) {
-				System.out.println("Ha habido un error al escribir el programa destino en fichero.");
-				return;
-			}
-		}
+		
 	}
 
 }

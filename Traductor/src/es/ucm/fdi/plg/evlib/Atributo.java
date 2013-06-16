@@ -1,7 +1,7 @@
 package es.ucm.fdi.plg.evlib;
 
 public abstract class Atributo {
-   private static boolean DEBUG=true;   
+   private static boolean DEBUG=false;   
    public static void fijaDebug(boolean debug) {DEBUG=debug;}   
       
    private String contexto; 
