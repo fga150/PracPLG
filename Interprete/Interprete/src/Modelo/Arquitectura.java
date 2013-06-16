@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class Arquitectura{
 
-	private final int tamMemoriaDatos = 100;
-	private final int tamPila = 100;
+	private final int tamMemoriaDatos = 1000;
+	private final int tamPila = 1000;
 	
 	private Motor motor;
 	private int[] registroSwap;

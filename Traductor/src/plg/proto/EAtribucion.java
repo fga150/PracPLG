@@ -1972,7 +1972,7 @@ class sumaLongAccesoVar implements SemFun{
     	int valInt = Integer.parseInt(val);
     	String id = (String) args[2].valor();
     	   	   	
-		if (ts.nivel2Activado() && ts.existeId(id)){
+		if (ts.nivel2Activado() && ts.existeIdSegundoNivel(id)){
 			valInt += 3;
 			if (ts.getClase(id).equals("pvar")) valInt += 1;
 		}
@@ -2761,18 +2761,15 @@ public class EAtribucion extends Atribucion{
  	
  public TAtributos rTuplas0(TAtributos tuplas1, TAtributos declaracionTipo) {
          regla("Tuplas :: Tuplas , DeclaracionTipo");
-         System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");  
          TAtributos tuplas0 = atributosPara("tuplas0", "tsh", "tipo", "err");
 
-         dependencias(declaracionTipo.a("tsh"), tuplas0.a("tsh"));
-//FIXME ADD         
+         dependencias(declaracionTipo.a("tsh"), tuplas0.a("tsh"));       
          dependencias(tuplas1.a("tsh"), tuplas0.a("tsh"));
          dependencias(tuplas0.a("tipo"), tuplas1.a("err"), declaracionTipo.a("err"), tuplas1.a("tipo"), declaracionTipo.a("tipo"));       
          dependencias(tuplas0.a("err"), tuplas1.a("err"), declaracionTipo.a("err"));  
          
          
          calculo(tuplas1.a("tsh"), asignacion);       
-//FIXME ADD         
          calculo(declaracionTipo.a("tsh"), asignacion);       
          calculo(tuplas0.a("tipo"), compruebaTuplasAnyadeCampo);   
          calculo(tuplas0.a("err"), concatena);     

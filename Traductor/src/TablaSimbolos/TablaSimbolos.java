@@ -146,6 +146,10 @@ public class TablaSimbolos {
 		return ts.containsKey(id);
 	}
 	
+	public boolean existeIdSegundoNivel(String id){
+		  return tsNivel2.containsKey(id);
+		}
+	
 	public int getDir(String id) { //FIXME
 		if (nivel2Activado() && tsNivel2.containsKey(id)) return tsNivel2.get(id).getDir();
 		if (ts.containsKey(id)) return ts.get(id).getDir();
