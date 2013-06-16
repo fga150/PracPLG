@@ -17,6 +17,8 @@ import Controlador.Controlador;
 public class Ventana extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private static final int maxPila = 50;
+	private static final int maxMemoria = 500;
 	
 	private Controlador controlador;
 	private DefaultTableModel dtm1,dtm2;
@@ -80,7 +82,7 @@ public class Ventana extends JFrame {
 		dtm1 = new DefaultTableModel();
 		tablaPila = new JTable(dtm1);
 		dtm1.addColumn("Contenido pila");
-		for (int i=0;i<30;i++){
+		for (int i=0;i<maxPila;i++){
 			dtm1.addRow(new Object[]{""});
 		}
 		tablaPila.setEnabled(false);
@@ -89,7 +91,7 @@ public class Ventana extends JFrame {
 		tablaMemoria = new JTable(dtm2);
 		dtm2.addColumn("Dirección");
 		dtm2.addColumn("Contenido");
-		for (int i=0;i<30;i++){
+		for (int i=0;i<maxMemoria;i++){
 			dtm2.addRow(new Object[]{i,""});
 		}
 		tablaMemoria.setEnabled(false);
@@ -204,13 +206,13 @@ public class Ventana extends JFrame {
 		{
 
 			//---- tablaPila ----
-			tablaPila.setPreferredSize(new Dimension(30,30*25));
+			tablaPila.setPreferredSize(new Dimension(maxPila,maxPila*25));
 			tablaPila.setRequestFocusEnabled(false);
 			tablaPila.setRowHeight(25);
 			scrollPane4.setViewportView(tablaPila);
 			Rectangle visible = tablaPila.getVisibleRect();
 		    Rectangle bounds = tablaPila.getBounds();
-			visible.y = bounds.height - visible.height + 30*25;
+			visible.y = bounds.height - visible.height + maxPila*25;
 			tablaPila.scrollRectToVisible(visible);
 		}
 		contentPane.add(scrollPane4, BorderLayout.CENTER);
@@ -255,7 +257,7 @@ public class Ventana extends JFrame {
 			{
 
 				//---- tablaMemoria ----
-				tablaMemoria.setPreferredSize(new Dimension(300, 30*25));
+				tablaMemoria.setPreferredSize(new Dimension(maxMemoria, maxMemoria*25));
 				tablaMemoria.setRowSelectionAllowed(false);
 				tablaMemoria.setPreferredScrollableViewportSize(new Dimension(300, 850));
 				tablaMemoria.setRowHeight(25);
