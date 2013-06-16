@@ -39,6 +39,7 @@ class AsignacionDependencias1 implements SemFun{
     @Override
     public Object eval(Atributo... args) {
     	String cod = (String) args[1].valor();
+    	String etq = (String) args[2].valor();
     	return args[0].valor();
     }
     
@@ -3040,7 +3041,7 @@ public class EAtribucion extends Atribucion{
 		TAtributos subprogramas0 = atributosPara("subprogramas0", "tsh", "etq", "etqh", "cod", "err", "ts");
 	
 		dependencias(subprogramas1.a("tsh"), subprogramas0.a("tsh"));
-		dependencias(subprograma.a("tsh"), subprogramas1.a("ts"), subprogramas1.a("cod"));  
+		dependencias(subprograma.a("tsh"), subprogramas1.a("ts"), subprogramas1.a("cod"), subprogramas1.a("etq"));  
 		dependencias(subprogramas0.a("ts"), subprogramas1.a("ts"), subprograma.a("lex"), subprograma.a("clase"), subprograma.a("tipo"), subprogramas0.a("err")); 
 		dependencias(subprogramas0.a("cod"), subprogramas1.a("cod"), subprograma.a("cod"));  
 		dependencias(subprogramas1.a("etqh"), subprogramas0.a("etqh")); 

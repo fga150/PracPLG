@@ -2,48 +2,38 @@ program : ejemplo{
 
 
  consts{
-       const natural dim = 3;
+       const natural dim = 10;
     }       
       
    tipos{
-       tipo integer[3] array;  
+         tipo float[dim][dim] tmatriz;
+       tipo (tmatriz,float) tresultado; 
      }  
      
     vars{
-    	var array a;
+    	var tresultado t;
     }
     
-    subprograms{
-     subprogram : asigna(array * a,integer num2){
-       vars{
-          var natural i;
-       }
-	   instructions{
-	     i = 0;
-	     if (false or false or false) then a[0] = 300;
-	     else a[1] = 300;
-	     endif
-	   }  
+	subprograms{
+    
+       subprogram : mod(tresultado * num3){
+   instructions{
+    num3 _0[3][4] = 10;
+    out(num3 _0[3][4]);
+   }  
   }
-  
-   subprogram : lala(){
-       vars{
-          var natural i;
-       }
-	   instructions{	
-			if (a[0]>0) then a[0] = -70; else a[0] = 80; endif
-			if (a[1]<0) then a[1] = 100; endif
-	   }  
+     subprogram : asigna(tresultado num1,integer num2){
+   instructions{
+    num1 _0[3][4] = 1 + 3;
+    call mod(num3 = num1);
+    out(num1 _0[3][4]);
+   }  
   }
- }
+  }
   
  instructions{
- @ call asigna(a = a, num2 = 3);
-	a[0] = 18;
-	a[1] = -7;
-	a[2] = 0;
-	
-	call lala();
-
+  t _0[3][4] = 1;
+  call asigna(num1 = t, num2 = 2);
+  out(t _0[3][4]);
  }
 }
