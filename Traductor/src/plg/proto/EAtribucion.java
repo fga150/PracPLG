@@ -4089,7 +4089,7 @@ public class EAtribucion extends Atribucion{
          calculo(nivel2.a("tsh"), asignacion); 
          calculo(nivel11.a("etqh"), asignacion);
          calculo(nivel2.a("etqh"), suma34Designador);
-         calculo(nivel10.a("etq"), suma12Designador);
+         calculo(nivel10.a("etq"), suma1siDesignador);
          calculo(nivel10.a("cod"), codNivel11);
          calculo(nivel11.a("irvh"), suma1siDesignador);
          calculo(nivel11.a("irfh"), suma23Designador);
@@ -4187,7 +4187,7 @@ public class EAtribucion extends Atribucion{
          calculo(nivel3.a("tsh"), asignacion);        
          calculo(nivel21.a("etqh"), asignacion);  
          calculo(nivel3.a("etqh"), suma34Designador);  
-         calculo(nivel20.a("etq"), suma12Designador);
+         calculo(nivel20.a("etq"), suma1siDesignador);
          calculo(nivel20.a("cod"), codNivel21);  
          calculo(nivel21.a("irvh"), suma1siDesignador);    
          calculo(nivel21.a("irfh"), suma23Designador);    

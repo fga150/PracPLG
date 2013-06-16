@@ -20,8 +20,8 @@ program : ejemplo{
        }
 	   instructions{
 	     i = 0;
-	     if (i == 0) then a[0] = 300; 
-	     else a[1] = 400;
+	     if (false or false or false) then a[0] = 300;
+	     else a[1] = 300;
 	     endif
 	   }  
   }
