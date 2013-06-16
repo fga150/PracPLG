@@ -101,6 +101,8 @@ public class CompruebaTipos {
 		String tipo1 = t1.getTipo();
 		String tipo2 = t2.getTipo();
 		if (tipo1.equals("terror") || tipo2.equals("terror") || tipo1.equals("terrorRec") || tipo2.equals("terrorRec")) return false;
+		else if (tipo1.equals("elemTupla")) return compatiblesAsign(((TipoElemTupla)t1).getTipoElem(), t2);
+		else if (tipo2.equals("elemTupla")) return compatiblesAsign(t1, ((TipoElemTupla)t2).getTipoElem());
 		else if (tipo1.equals("array")) {
 			if (!tipo2.equals("array")) return false;
 			if (((TipoArray)t1).getNElem() != ((TipoArray)t2).getNElem()) return false;
@@ -121,8 +123,6 @@ public class CompruebaTipos {
 			}
 			return true;
 		} else if (tipo2.equals("array") || tipo2.equals("tup")) return false;
-		else if (tipo1.equals("elemTupla")) return compatiblesAsign(((TipoElemTupla)t1).getTipoElem(), t2);
-		else if (tipo2.equals("elemTupla")) return compatiblesAsign(t1, ((TipoElemTupla)t2).getTipoElem());
 		else if (t1.esConstante()) return false;
 		else if (tipo1.equals(tipo2)) return true;
 		else if (tipo1.equals("integer") && (tipo2.equals("natural"))) return true;

@@ -699,7 +699,7 @@ class CompruebaYanyadeIdSubprogramas0 implements SemFun{
     	TipoSubprograma tipo = (TipoSubprograma) args[3].valor();
     	String err = (String) args[4].valor();
     	
-    	if (err.equals("")) ts.anyadeIdPrimerNivel(id, clase, tipo);
+    	/*if (err.equals(""))*/ ts.anyadeIdPrimerNivel(id, clase, tipo);
     	return ts;
     }
     
@@ -1434,6 +1434,7 @@ class ErrArgumento implements SemFun{
     	if (l.contains(idVar)) err += "El parametro " + idVar + " del subprograma " + idProc + " esta repetido\n";
     	if (!ts.existeParam(idProc, idVar)) err += "El identificador " + idVar + " no es un parametro del subprograma " + idProc + "\n";
     	else if (!c.compatiblesAsign(ts.dameTipoParam(idProc, idVar), tipo)) err += "Error de tipos en la asignacion del parametro " + idVar + " del subprograma " + idProc + "\n";
+    	else if (!c.compatiblesAsign(tipo, ts.dameTipoParam(idProc, idVar)) && ts.esModoPvar(idProc, idVar)) err += "Error de tipos en la asignacion del parametro " + idVar + " del subprograma " + idProc + "\n";
     	else if (ts.esModoPvar(idProc, idVar) && esDesign.equals("false")) err += "El parametro " + idVar + " del subprograma " + idProc + " debe ser un designador";
     	
     	return err;    	
