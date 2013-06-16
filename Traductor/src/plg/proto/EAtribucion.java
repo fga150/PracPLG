@@ -3717,7 +3717,7 @@ public class EAtribucion extends Atribucion{
          
          regla("InstrsV :: vacio");
          
-         TAtributos instrsV= atributosPara("instrsV", "etq", "etqh", "cod");
+         TAtributos instrsV= atributosPara("instrsV", "etq", "etqh", "cod", "err", "tsh");
       
          dependencias(instrsV.a("etq"), instrsV.a("etqh"));	
 
