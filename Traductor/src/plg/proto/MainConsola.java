@@ -25,9 +25,9 @@ public class MainConsola {
 		String fuente = args[0];
 		String destino = args[1];
 		
-		Parser p;
+		parser p;
 		try {
-			p = new Parser(new Scanner(new FileInputStream(fuente)),new DefaultSymbolFactory());
+			p = new parser(new Scanner(new FileInputStream(fuente)),new DefaultSymbolFactory());
 		} catch (FileNotFoundException e) {
 			System.out.println("Se ha metido incorrectamente la direccion del fichero del programa fuente.");
 			return;

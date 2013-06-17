@@ -13,18 +13,18 @@ import Modelo.es.ucm.fdi.plg.evlib.TAtributos;
 /** CUP v0.11a beta 20060608 generated parser.
   * @version Sun Jun 16 22:05:10 CEST 2013
   */
-public class Parser extends java_cup.runtime.lr_parser {
+public class parser extends java_cup.runtime.lr_parser {
 	
 	Controlador e;
 
   /** Default constructor. */
-  public Parser() {super();}
+  public parser() {super();}
 
   /** Constructor which sets the default scanner. */
-  public Parser(java_cup.runtime.Scanner s) {super(s);}
+  public parser(java_cup.runtime.Scanner s) {super(s);}
 
   /** Constructor which sets the default scanner. */
-  public Parser(java_cup.runtime.Scanner s, java_cup.runtime.SymbolFactory sf,Controlador c) {super(s,sf); e=c;}
+  public parser(java_cup.runtime.Scanner s, java_cup.runtime.SymbolFactory sf,Controlador c) {super(s,sf); e=c;}
 
   /** Production table. */
   protected static final short _production_table[][] = 
@@ -508,10 +508,10 @@ class CUP$Parser$actions {
 
    private EAtribucion atrib = new EAtribucion();
 
-  private final Parser parser;
+  private final parser parser;
 
   /** Constructor */
-  CUP$Parser$actions(Parser parser) {
+  CUP$Parser$actions(parser parser) {
     this.parser = parser;
   }
 

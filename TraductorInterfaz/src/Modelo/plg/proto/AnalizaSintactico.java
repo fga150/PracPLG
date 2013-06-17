@@ -18,7 +18,7 @@ public class AnalizaSintactico {
 	  out2.write(input);
 	  out2.close();
   
- 	  Parser p = new Parser(new Scanner(new FileInputStream("Auxiliar.plg")),new DefaultSymbolFactory(),c);
+ 	  parser p = new parser(new Scanner(new FileInputStream("Auxiliar.plg")),new DefaultSymbolFactory(),c);
 	     
 	  Symbol s= null;
 	  try {

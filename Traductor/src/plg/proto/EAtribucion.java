@@ -788,13 +788,12 @@ class CodSubprograma implements SemFun{
     @Override
     public Object eval(Atributo... args) {
     	String cod1 = (String) args[0].valor();
-    	String desp = (String) args[1].valor();
-    	
+    	TablaSimbolos ts = (TablaSimbolos) args[1].valor();
     	
     	CodigoProcs c = new CodigoProcs();
     	String cod = "";
     	
-    	int tam = Integer.parseInt(desp);
+    	int tam = ts.dameTamañoSubprograma();
     	cod = c.codigoPrologo(tam);
     	cod += cod1;
     	cod += c.codigoEpilogo(tam);
@@ -3102,7 +3101,7 @@ public class EAtribucion extends Atribucion{
 		dependencias(subprograma.a("tipo"), decParams.a("params"), subprograma.a("etqh"));
 		dependencias(decParams.a("tsh"), subprograma.a("tsh"));
 		dependencias(cuerpo.a("tsh"), decParams.a("ts"), subprograma.a("lex"), subprograma.a("clase"), subprograma.a("tipo"));
-		dependencias(subprograma.a("cod"), cuerpo.a("cod"), decParams.a("desp"));
+		dependencias(subprograma.a("cod"), cuerpo.a("cod"), cuerpo.a("ts"));
 		dependencias(cuerpo.a("etqh"), subprograma.a("etqh"));
 		dependencias(subprograma.a("etq"), cuerpo.a("etq"));
 		dependencias(subprograma.a("err"), decParams.a("err"), cuerpo.a("err"), decParams.a("tsh"), subprograma.a("lex"));
@@ -3118,7 +3117,6 @@ public class EAtribucion extends Atribucion{
 		calculo(subprograma.a("err"), errSubprograma);
 	
 		return subprograma;
-
 
 	}
 
@@ -3283,11 +3281,12 @@ public class EAtribucion extends Atribucion{
 	public TAtributos rCuerpo(TAtributos decVariables, TAtributos decInstruc){
 		regla("Cuerpo :: DecVariables DecInstruc");
 
-		TAtributos cuerpo= atributosPara("cuerpo", "tsh", "cod", "etq", "etqh",  "err");
+		TAtributos cuerpo= atributosPara("cuerpo", "tsh", "cod", "etq", "etqh",  "err","ts");
 	
 	
 		dependencias(decVariables.a("tsh"), cuerpo.a("tsh"));
 		dependencias(decInstruc.a("tsh"), decVariables.a("ts"));
+		dependencias(cuerpo.a("ts"),decVariables.a("ts"));
 		dependencias(cuerpo.a("cod"), decInstruc.a("cod"));
 		dependencias(decInstruc.a("etqh"), cuerpo.a("etqh"));
 		dependencias(cuerpo.a("etq"), decInstruc.a("etq"));
@@ -3296,6 +3295,7 @@ public class EAtribucion extends Atribucion{
 	
 		calculo(decVariables.a("tsh"), asignacion);
 		calculo(decInstruc.a("tsh"), asignacion);
+		calculo(cuerpo.a("ts"),asignacion);
 		calculo(cuerpo.a("cod"), asignacion);
 		calculo(decInstruc.a("etqh"), asignacion);
 		calculo(cuerpo.a("etq"), asignacion);

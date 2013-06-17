@@ -11,7 +11,7 @@ import java_cup.runtime.*;
 
 public class Main {
   public static void main(String[] args) throws Exception {   
- 	  Parser p = new Parser(new Scanner(new FileInputStream("src/plg/proto/input2.txt")),new DefaultSymbolFactory());
+ 	  parser p = new parser(new Scanner(new FileInputStream("src/plg/proto/mergesort.txt")),new DefaultSymbolFactory());
 	     
 	  Symbol s= null;
 	  try {

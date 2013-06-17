@@ -286,6 +286,7 @@ public class TablaSimbolos {
 	}
 	
 	public String calculaCodigoAccesoVar(String id){
+		
 		String cod = "";
 		if (!existeId(id)) return "errCodigoIden";
 		else if (nivel2Activado() && tsNivel2.containsKey(id)){
@@ -344,6 +345,10 @@ public class TablaSimbolos {
 																														
 		return res;
 		
+	}
+
+	public int dameTamañoSubprograma() {
+		return proximaDirTsNivel2;
 	}
 
 

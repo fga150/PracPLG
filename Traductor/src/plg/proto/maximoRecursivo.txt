@@ -1,0 +1,45 @@
+program : ejemplo{
+
+
+ consts{
+       const natural dim = 4;
+     }   
+      
+   tipos{
+       tipo integer[dim] array; 
+     }  
+     
+    vars{
+    	var array v;
+    	var natural i;
+		var integer maximo;
+    }
+    
+	subprograms{
+		subprogram : calculaMaximo(array * v,natural n,integer * maximo){
+			vars{
+				var natural n1;
+				var natural n2;
+				var integer maximoAux;
+			}
+			instructions{
+				if (n == 0) then maximo = v[n];
+				else 
+					call calculaMaximo(v = v,n = n - 1,maximo = maximoAux);
+					if (maximoAux > v[n]) then maximo = maximoAux;
+					else maximo = v[n];
+					endif
+				endif
+			}
+		}
+	}
+	
+	instructions{
+		v[0] = 1; 
+		v[1] = 4;
+		v[2] = 50;
+		v[3] = 4;
+		call calculaMaximo(v = v,n = dim - 1, maximo = maximo);
+		out(maximo);
+	}
+}
