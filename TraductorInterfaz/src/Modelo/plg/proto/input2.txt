@@ -1,0 +1,39 @@
+program : ejemplo{
+
+
+ consts{
+       const natural dim = 10;
+     }   
+      
+   tipos{
+         tipo float[dim][dim] tmatriz;
+       tipo (tmatriz,float) tresultado; 
+     }  
+     
+    vars{
+    	var tresultado t;
+    }
+    
+	subprograms{
+    
+       subprogram : mod(tresultado * num3){
+   instructions{
+    num3 _0[3][4] = 10;
+    out(num3 _0[3][4]);
+   }  
+  }
+     subprogram : asigna(tresultado num1,integer num2){
+   instructions{
+    num1 _0[3][4] = 1 + 3;
+    call mod(num3 = num1);
+    out(num1 _0[3][4]);
+   }  
+  }
+  }
+  
+ instructions{
+  t _0[3][4] = 1;
+  call asigna(num1 = t, num2 = 2);
+  out(t _0[3][4]);
+ }
+}
