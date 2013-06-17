@@ -324,8 +324,6 @@ public class TablaSimbolos {
 			res = "resta_swap";
 		else if (op.equals("*"))
 			res = "multiplica_swap";
-		else if (op.equals("/"))
-			res = "divide_swap";
 		else if (op.equals("%"))
 			res = "modulo";
 		else if (op.equals("<<"))
@@ -341,14 +339,23 @@ public class TablaSimbolos {
 		else if (op.equals("(nat)"))
 			res = "cast_nat";
 		else if (op.equals("not"))
-			res = "not";
-																														
+			res = "not";																						
 		return res;
 		
 	}
 
 	public int dameTamañoSubprograma() {
 		return proximaDirTsNivel2;
+	}
+
+	public String calculaCodigoPilaOP2(String op, Tipo t) {
+		String res = "";
+		if (op.equals("/")){
+			if (t.equals("float")) res = "divide_swap";
+			else res = "divide_swap_n";
+		}
+		else res = calculaCodigoPilaOP(op);
+		return res;
 	}
 
 

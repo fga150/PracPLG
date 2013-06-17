@@ -1625,13 +1625,14 @@ class CodNivel20 implements SemFun{
     	String cod1 = (String) args[2].valor();
     	String esDesignador1 = (String) args[3].valor();
     	String op = (String) args[4].valor();
+    	Tipo t = (Tipo) args[5].valor();
     	TablaSimbolos ts = new TablaSimbolos();
     	
     	String cod = cod0;
     	if (esDesignador0.equals("true")) cod = cod + "apila_ind\n";
     	cod = cod + cod1;
     	if (esDesignador1.equals("true")) cod = cod + "apila_ind\n";
-    	cod = cod + ts.calculaCodigoPilaOP(op) + "\n";
+    	cod = cod + ts.calculaCodigoPilaOP2(op,t) + "\n";
     	
     	return cod;  	
     }
@@ -4157,7 +4158,8 @@ public class EAtribucion extends Atribucion{
          dependencias(nivel21.a("etqh"), nivel20.a("etqh"));  
          dependencias(nivel3.a("etqh"), nivel21.a("etq"), nivel21.a("esDesignador"));  
          dependencias(nivel20.a("etq"), nivel3.a("etq"), nivel3.a("esDesignador"));  
-         dependencias(nivel20.a("cod"), nivel21.a("cod"), nivel21.a("esDesignador"), nivel3.a("cod"), nivel3.a("esDesignador"), opNivel2.a("lex"));  
+         dependencias(nivel20.a("cod"), nivel21.a("cod"), nivel21.a("esDesignador"), nivel3.a("cod"), nivel3.a("esDesignador"), 
+        		 opNivel2.a("lex"),nivel20.a("tipo"));  
          dependencias(nivel21.a("irvh"), nivel21.a("etq"), nivel21.a("esDesignador"));  
          dependencias(nivel21.a("irfh"), nivel21.a("etq"),  nivel21.a("esDesignador")); 
          dependencias(nivel3.a("irvh"), nivel3.a("etq"),  nivel3.a("esDesignador"));   

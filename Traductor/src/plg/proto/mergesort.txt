@@ -1,52 +1,52 @@
 program : mergesort{
 
  consts{
-       const natural dim = 4;
+         const natural dim = 5;
      }   
       
    tipos{
-       tipo integer[dim] array; 
+         tipo integer[dim] array; 
      }  
      
     vars{
-              var array vector;
-              var natural variable1;
+         var array vector;
+         var natural variable1;
     }
     
    subprograms{
  
-               subprogram : mezclar(array * v1, natural n1, array * v2, natural n2, array * v){
-	vars{
-	      var natural i;
-	      var natural j;
-	      var natural k;
-	}
-	instructions{
-	       i = 0; 
-	       j = 0;
-	       k = 0;
-	       while ((i < n1) and (j < n2)) do
-	                 if (v1[i]<v2[j]) then
-                                               v[k] = v1[i];
-							i = i + 1;
+         subprogram : mezclar(array * v1, natural n1, array * v2, natural n2, array * v){
+			vars{
+			      var natural i;
+			      var natural j;
+			      var natural k;
+			}
+			instructions{
+			       i = 0; 
+			       j = 0;
+			       k = 0;
+			       while ((i < n1) and (j < n2)) do
+			            if (v1[i]<v2[j]) then
+			                v[k] = v1[i];
+						    i = i + 1;
 						else
-							v[k] = v2[j];
-							j = j + 1;
+						    v[k] = v2[j];
+						    j = j + 1;
 						endif
 						k = k + 1;
-					endwhile
-					while (i<n1) do
+				   endwhile
+				   while (i<n1) do
 						v[k] = v1[i];
 						i = i + 1;
 						k = k + 1;
-					endwhile
-					while (j<n2) do
+				   endwhile
+				   while (j<n2) do
 						v[k] = v2[j];
 						j = j + 1;
 						k = k + 1;
-					endwhile
+				   endwhile
 				}
-		}
+			}
 	
     	subprogram : mezcla(array * v, natural n){
 	    	vars{
@@ -80,6 +80,8 @@ program : mergesort{
 	    			endwhile
 					call mezcla(v = v1,n = n1);
 					call mezcla(v = v2,n = n2);
+					out(n1);
+					out(n2);
 					call mezclar(v1 = v1, n1 = n1, v2 = v2, n2 = n2, v = v);
 	    		endif
 	    	}
@@ -94,6 +96,7 @@ program : mergesort{
 	  			vector[1] = 2;
 	  			vector[2] = 6;
 	  			vector[3] = 1;	
+	  			vector[4] = 3;
 	  		}
 	  	}
   	}
@@ -103,4 +106,5 @@ program : mergesort{
 		call mezcla(v = vector,n = dim);
 	}
 }
+
 

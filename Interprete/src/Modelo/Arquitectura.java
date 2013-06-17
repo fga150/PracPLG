@@ -54,6 +54,7 @@ public class Arquitectura{
 			case "multiplica_swap": multiplica_swap(); break;
 			case "divide": divide(); break;
 			case "divide_swap": divide_swap(); break;
+			case "divide_swap_n": divide_swap_n(); break;
 			case "modulo": modulo(); break;
 			case "desplazamiento_Izq":	desplazamiento_izq(); break;		
 			case "desplazamiento_Der":	desplazamiento_der(); break;		
@@ -450,7 +451,29 @@ public class Arquitectura{
 			throw new Exception("GestionError al dividir: No hay suficientes datos en la pila. Line: "+contadorPrograma);
 		}
 	}
-		
+	
+	public void divide_swap_n() throws Exception{
+		if (contadorPila>=1){
+			float dato1 = (float)pila[contadorPila-1];
+			float dato2 = (float)pila[contadorPila];
+				int temp = 0;
+				if ((registroSwap[2]==0) && ((float)dato2==0)){
+					setRegistroParada(1);
+					throw new Exception("GestionError de Division por 0 en la línea "+contadorPrograma);
+				}
+				else{
+					if (registroSwap[2]==0) temp= (int)dato1 / (int)dato2;
+					else temp= (int)dato1 *(int)dato2;
+					pila[contadorPila-1] = (float)temp;
+					contadorPila--;
+					contadorPrograma++;
+				}
+			}	
+		else{
+			stop();
+			throw new Exception("GestionError al dividir: No hay suficientes datos en la pila. Line: "+contadorPrograma);
+		}
+	}
 	
 	
 	public void modulo() throws Exception{
