@@ -17,8 +17,8 @@ import Controlador.Controlador;
 public class Ventana extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static final int maxPila = 50;
-	private static final int maxMemoria = 500;
+	private static final int maxPila = 100;
+	private static final int maxMemoria = 1000;
 	
 	private Controlador controlador;
 	private DefaultTableModel dtm1,dtm2;
